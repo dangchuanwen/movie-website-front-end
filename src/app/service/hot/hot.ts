@@ -12,16 +12,11 @@ export class HotService implements IHotService {
   connection: Connection;
 
   async getHotList(): Promise<IHotResult> {
-    try {
-      const hotRepository = this.connection.getRepository(Hot);
-      const hotList: Hot[] = await hotRepository
-        .createQueryBuilder("hot")
-        .innerJoinAndSelect("hot.program", "program")
-        .getMany();
-      return hotList;
-    } catch (err) {
-      this.ctx.logger.error(err);
-      return [];
-    }
+    const hotRepository = this.connection.getRepository(Hot);
+    const hotList: Hot[] = await hotRepository
+      .createQueryBuilder("hot")
+      .innerJoinAndSelect("hot.program", "program")
+      .getMany();
+    return hotList;
   }
 }

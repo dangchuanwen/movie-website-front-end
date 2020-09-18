@@ -12,16 +12,11 @@ export class RecommendService implements IRecommendService {
   connection: Connection;
 
   async getRecommendList(): Promise<IRecommendResult> {
-    try {
-      const recommendRepository = this.connection.getRepository(Recommend);
-      const recommendList: Recommend[] = await recommendRepository
-        .createQueryBuilder("recommend")
-        .innerJoinAndSelect("recommend.program", "program")
-        .getMany();
-      return recommendList;
-    } catch (err) {
-      this.ctx.logger.error(err);
-      return [];
-    }
+    const recommendRepository = this.connection.getRepository(Recommend);
+    const recommendList: Recommend[] = await recommendRepository
+      .createQueryBuilder("recommend")
+      .innerJoinAndSelect("recommend.program", "program")
+      .getMany();
+    return recommendList;
   }
 }

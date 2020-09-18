@@ -13,7 +13,9 @@ export interface IAddHistoryOptions {
 export interface IHistoryResult extends Array<History> {}
 
 export interface IHistoryService {
-  getUserWatchHistory(options: IGetHistoryOptions): Promise<IHistoryResult>;
+  getUserWatchHistoryInLatestWeek(options: IGetHistoryOptions): Promise<IHistoryResult>;
+  getUserAllWatchHistory(options: IGetHistoryOptions): Promise<IHistoryResult>;
 
   addUserWatchHistory(options: IAddHistoryOptions): Promise<History>;
+
 }

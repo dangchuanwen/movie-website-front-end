@@ -19,7 +19,7 @@ class AppBootHook {
       this.connection = con;
       this.app.applicationContext.registerObject("connection", con);
     } catch(err) {
-      this.ctx.logger.error(err);
+      this.ctx && this.ctx.logger && this.ctx.logger.error(err);
     }
   }
 

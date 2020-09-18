@@ -4,6 +4,8 @@
   "description": "电影网站后端",
   "private": true,
   "dependencies": {
+    "@types/md5": "^2.2.0",
+    "date-fns": "^2.16.1",
     "egg-scripts": "^2.10.0",
     "midway": "^1.0.0",
     "mysql": "^2.18.1",
