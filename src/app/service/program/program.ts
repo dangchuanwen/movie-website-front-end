@@ -7,6 +7,8 @@ import {
   IProgramService,
   IGetMatchedProgrammesOptions,
   IGetMatchedProgrammesResult,
+  IGetRealProgrammeByNameAndOrderResult,
+  IGetRealProgrammeByNameAndOrderOptions,
 } from "./interface";
 import { Connection } from "typeorm";
 import { Program } from "../../entity/Program";
@@ -44,18 +46,15 @@ export class ProgramService implements IProgramService {
     let handle = program_set_repository.createQueryBuilder("program_set");
 
     if (program_type) {
-      // 添加 where condition
       handle = handle.where("program_type = :program_type", { program_type });
     }
     if (program_classification) {
-      // 添加 where condition
       handle = handle.andWhere(
         "program_classification = :program_classification",
         { program_classification }
       );
     }
     if (release_year) {
-      // 添加 where condition
       handle = handle.andWhere("release_year = :release_year", {
         release_year,
       });
@@ -81,9 +80,25 @@ export class ProgramService implements IProgramService {
     const programme_set_repository = this.connection.getRepository(ProgramSet);
     const matched_programmes: Program[] = await programme_set_repository
       .createQueryBuilder("program_set")
-      .where("program_set.name like :key_word", { key_word: `%${ key_word }%` })
+      .where("program_set.name like :key_word", { key_word: `%${key_word}%` })
       .limit(MOVIE_WALL_DEFAULT_RETURNED_COUNT)
       .getMany();
     return matched_programmes;
   }
+
+  async getRealProgrammeByNameAndOrder(
+    options: IGetRealProgrammeByNameAndOrderOptions
+  ): Promise<IGetRealProgrammeByNameAndOrderResult> {
+    const name: string = options.name;
+    const order: number = options.order;
+    const program_repository = this.connection.getRepository(Program);
+    const real_program = await program_repository
+      .createQueryBuilder("program")
+      .where("name = :name", { name })
+      .limit(1)
+      .offset(order - 1)
+      .getOne();
+    return real_program;
+  }
+
 }
