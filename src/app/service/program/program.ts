@@ -9,11 +9,16 @@ import {
   IGetMatchedProgrammesResult,
   IGetRealProgrammeByNameAndOrderResult,
   IGetRealProgrammeByNameAndOrderOptions,
+  IGetSearchProgrammeOptions,
+  IGetSearchProgrammeResult,
 } from "./interface";
 import { Connection } from "typeorm";
 import { Program } from "../../entity/Program";
 import { ProgramSet } from "../../entity/ProgramSet";
-import { MOVIE_WALL_DEFAULT_RETURNED_COUNT } from "../../const-definition/limit-value";
+import {
+  MOVIE_WALL_DEFAULT_RETURNED_COUNT,
+  SEARCH_PROGRAMME_RESULT_COUNT,
+} from "../../const-definition/limit-value";
 
 @provide("programService")
 export class ProgramService implements IProgramService {
@@ -101,4 +106,37 @@ export class ProgramService implements IProgramService {
     return real_program;
   }
 
+  async getSearchProgramme(
+    options: IGetSearchProgrammeOptions
+  ): Promise<IGetSearchProgrammeResult> {
+    const name: string = options.name;
+    const program_set_repository = this.connection.getRepository(ProgramSet);
+
+    const once_query_count: number = Math.ceil(
+      SEARCH_PROGRAMME_RESULT_COUNT / 3
+    );
+    // like name% 查询
+    const search_programme_result_make_up_in_back: ProgramSet[] = await program_set_repository
+      .createQueryBuilder("program_set")
+      .where("name like :name", { name: `${name}%` })
+      .limit(once_query_count)
+      .getMany();
+    // like %name 查询
+    const search_programme_result_make_up_in_front: ProgramSet[] = await program_set_repository
+      .createQueryBuilder("program_set")
+      .where("name like :name", { name: `%${name}` })
+      .limit(once_query_count)
+      .getMany();
+    // like %name% 查询
+    const search_programme_result_make_up_in_back_and_front: ProgramSet[] = await program_set_repository
+      .createQueryBuilder("program_set")
+      .where("name like :name", { name: `%${name}%` })
+      .limit(once_query_count)
+      .getMany();
+    return [
+      ...search_programme_result_make_up_in_back,
+      ...search_programme_result_make_up_in_front,
+      ...search_programme_result_make_up_in_back_and_front,
+    ];
+  }
 }

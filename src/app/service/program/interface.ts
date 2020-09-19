@@ -1,4 +1,5 @@
 import { Program } from "../../entity/Program";
+import { ProgramSet } from "../../entity/ProgramSet";
 
 export interface IGetOneProgramOptions {
   id: number;
@@ -28,6 +29,11 @@ export interface IGetRealProgrammeByNameAndOrderOptions {
 export interface IGetRealProgrammeByNameAndOrderResult extends Program {}
 
 
+export interface IGetSearchProgrammeOptions {
+  name: string;
+}
+export interface IGetSearchProgrammeResult extends Array<ProgramSet> {}
+
 export interface IProgramService {
   getOneProgram(options?: IGetOneProgramOptions): Promise<IGetOneProgramResult>;
 
@@ -40,4 +46,6 @@ export interface IProgramService {
   ): Promise<IGetMatchedProgrammesResult>;
 
   getRealProgrammeByNameAndOrder(options: IGetRealProgrammeByNameAndOrderOptions): Promise<IGetRealProgrammeByNameAndOrderResult>;
+
+  getSearchProgramme(options: IGetSearchProgrammeOptions): Promise<IGetSearchProgrammeResult>;
 }
