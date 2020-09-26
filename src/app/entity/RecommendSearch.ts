@@ -1,5 +1,5 @@
-import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { ProgramSet } from "./ProgramSet";
+import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { ProgramSet } from './ProgramSet';
 
 @Entity()
 export class RecommendSearch {

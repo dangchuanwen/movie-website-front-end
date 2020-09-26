@@ -1,24 +1,24 @@
-import { provide, inject, Context } from "midway";
-import { format } from "date-fns";
+import { provide, inject, Context } from 'midway';
+import { format } from 'date-fns';
 import {
   IHistoryService,
   IGetHistoryOptions,
   IHistoryResult,
   IAddHistoryOptions,
-} from "./interface";
-import { User } from "../../entity/User";
-import { Connection } from "typeorm";
-import { History } from "../../entity/History";
-import { IUserService } from "../user/interface";
-import { IProgramService } from "../program/interface";
-import { Program } from "../../entity/Program";
+} from './interface';
+import { User } from '../../entity/User';
+import { Connection } from 'typeorm';
+import { History } from '../../entity/History';
+import { IUserService } from '../user/interface';
+import { IProgramService } from '../program/interface';
+import { Program } from '../../entity/Program';
 
-@provide("historyService")
+@provide('historyService')
 export class HistoryService implements IHistoryService {
-  @inject("programService")
+  @inject('programService')
   programService: IProgramService;
 
-  @inject("userService")
+  @inject('userService')
   userService: IUserService;
 
   @inject()
@@ -41,9 +41,9 @@ export class HistoryService implements IHistoryService {
 
     const historyRepository = this.connection.getRepository(History);
     const userWatchHistory: History[] = await historyRepository
-      .createQueryBuilder("history")
+      .createQueryBuilder('history')
       .where('userId = :userId', { userId: user.id })
-      .innerJoinAndSelect("history.program", "program")
+      .innerJoinAndSelect('history.program', 'program')
       .getMany();
 
     return userWatchHistory;
@@ -56,18 +56,18 @@ export class HistoryService implements IHistoryService {
     const user = await this.userService.getUser({
       token,
     });
-    
+
     if (typeof user === 'undefined') {
       return [];
     }
 
     const historyRepository = this.connection.getRepository(History);
-    const lastWeekDate = format(new Date( ( new Date().getTime() -  1000 * 60 * 60 * 24 * 7) ), "yyyy-MM-dd hh:mm:ss");
+    const lastWeekDate = format(new Date((new Date().getTime() -  1000 * 60 * 60 * 24 * 7)), 'yyyy-MM-dd hh:mm:ss');
     const userWatchHistoryInLatestWeek: History[] = await historyRepository
-      .createQueryBuilder("history")
-      .where("history.timestamp > :lastWeekDate", { lastWeekDate })
-      .andWhere("history.userId = :userId", { userId: user.id })
-      .innerJoinAndSelect("history.program", "program")
+      .createQueryBuilder('history')
+      .where('history.timestamp > :lastWeekDate', { lastWeekDate })
+      .andWhere('history.userId = :userId', { userId: user.id })
+      .innerJoinAndSelect('history.program', 'program')
       .getMany();
     return userWatchHistoryInLatestWeek;
   }

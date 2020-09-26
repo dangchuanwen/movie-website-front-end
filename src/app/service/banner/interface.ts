@@ -1,6 +1,6 @@
-import { Banner } from "../../entity/Banner";
+import { Banner } from '../../entity/Banner';
 
-export interface IBannerOptions{}
+export interface IBannerOptions {}
 
 export interface IBannerResult extends Array<Banner> {}
 

@@ -1,12 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 enum ProgramType {
-  MOVIE="电影",
-  TV_PLAY="电视剧",
-  COMIC="动漫",
-  VARIETY_SHOW="综艺"
-};
-
+  MOVIE= '电影',
+  TV_PLAY= '电视剧',
+  COMIC= '动漫',
+  VARIETY_SHOW= '综艺'
+}
 
 @Entity()
 export class Program {
@@ -14,7 +13,7 @@ export class Program {
   id: number;
 
   @Column({
-    type: "enum",
+    type: 'enum',
     enum: ProgramType,
     default: ProgramType.MOVIE
   })

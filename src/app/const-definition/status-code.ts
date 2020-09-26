@@ -1,5 +1,5 @@
 
-export const SUCEESS = 0;
+export const SUCCESS = 0;
 
 export const QUERY_DATA_ERROR = 1;
 

@@ -1,7 +1,7 @@
-import { Context, controller, get, inject, provide } from "midway";
-import { INSERT_DATA_ERROR, SUCEESS } from "../../const-definition/status-code";
-import { IUserService } from "../../service/user/interface";
-import { HttpResponse } from "../../tool/tool";
+import { Context, controller, get, inject, provide } from 'midway';
+import { INSERT_DATA_ERROR, SUCCESS } from '../../const-definition/status-code';
+import { IUserService } from '../../service/user/interface';
+import { HttpResponse } from '../../tool/tool';
 
 @provide()
 @controller('/user')
@@ -16,8 +16,8 @@ export class UserController {
   async userLogin() {
     try {
       await this.userSerive.login();
-      this.ctx.body = HttpResponse({}, SUCEESS);
-    } catch(err) {
+      this.ctx.body = HttpResponse({}, SUCCESS);
+    } catch (err) {
       this.ctx.body = HttpResponse({}, INSERT_DATA_ERROR, 'there may an error in login funtion of userService.');
     }
   }

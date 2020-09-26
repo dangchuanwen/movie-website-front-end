@@ -1,10 +1,10 @@
-import { IUserService, IUserResult, IUserOptions } from "./interface";
-import { provide, inject, Context } from "midway";
-import { Connection } from "typeorm";
-import { User } from "../../entity/User";
-import { TokenTool } from "../../tool/tool";
+import { IUserService, IUserResult, IUserOptions } from './interface';
+import { provide, inject, Context } from 'midway';
+import { Connection } from 'typeorm';
+import { User } from '../../entity/User';
+import { TokenTool } from '../../tool/tool';
 
-@provide("userService")
+@provide('userService')
 export class UserService implements IUserService {
   @inject()
   ctx: Context;
@@ -22,7 +22,7 @@ export class UserService implements IUserService {
   }
 
   async login(): Promise<void> {
-    let token = this.ctx.cookies.get("token");
+    let token = this.ctx.cookies.get('token');
     if (!token) {
       token = TokenTool.gengerateToken();
       const user = new User();
@@ -34,7 +34,7 @@ export class UserService implements IUserService {
     const currentTime = new Date().getTime();
     const expirationTime = currentTime + 60 * 1000 * 60 * 24 * 30;
 
-    this.ctx.cookies.set("token", token, {
+    this.ctx.cookies.set('token', token, {
       httpOnly: true,
       expires: new Date(expirationTime)
     });

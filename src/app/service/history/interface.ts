@@ -1,4 +1,4 @@
-import { History } from "../../entity/History";
+import { History } from '../../entity/History';
 
 export interface IGetHistoryOptions {
   token: string;

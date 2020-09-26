@@ -1,6 +1,6 @@
-import "reflect-metadata";
-import { Application, Context, inject } from "midway";
-import { createConnection, Connection } from "typeorm";
+import 'reflect-metadata';
+import { Application, Context, inject } from 'midway';
+import { createConnection, Connection } from 'typeorm';
 
 class AppBootHook {
   app: Application;
@@ -17,9 +17,11 @@ class AppBootHook {
     try {
       const con = await createConnection();
       this.connection = con;
-      this.app.applicationContext.registerObject("connection", con);
-    } catch(err) {
-      this.ctx && this.ctx.logger && this.ctx.logger.error(err);
+      this.app.applicationContext.registerObject('connection', con);
+    } catch (err) {
+      if (this.ctx) {
+        this.ctx.logger.error(err);
+      }
     }
   }
 

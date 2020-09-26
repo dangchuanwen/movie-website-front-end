@@ -1,5 +1,5 @@
-import { Program } from "../../entity/Program";
-import { ProgramSet } from "../../entity/ProgramSet";
+import { Program } from '../../entity/Program';
+import { ProgramSet } from '../../entity/ProgramSet';
 
 export interface IGetOneProgramOptions {
   id: number;
@@ -21,13 +21,11 @@ export interface IGetMatchedProgrammesOptions {
 }
 export interface IGetMatchedProgrammesResult extends Array<Program> {}
 
-
 export interface IGetRealProgrammeByNameAndOrderOptions {
   name: string;
   order: number;
 }
 export interface IGetRealProgrammeByNameAndOrderResult extends Program {}
-
 
 export interface IGetSearchProgrammeOptions {
   name: string;

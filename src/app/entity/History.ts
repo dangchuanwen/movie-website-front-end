@@ -1,6 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column } from "typeorm";
-import { Program } from "./Program";
-import { User } from "./User";
+import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column } from 'typeorm';
+import { Program } from './Program';
+import { User } from './User';
 
 @Entity()
 export class History {
@@ -9,7 +9,7 @@ export class History {
 
   @OneToOne(type => Program)
   @JoinColumn()
-  program: Program
+  program: Program;
 
   @Column()
   watch_time_length: number;
@@ -19,7 +19,7 @@ export class History {
 
   @OneToOne(type => User)
   @JoinColumn()
-  user: User
+  user: User;
 
   @Column({
     type: 'timestamp'

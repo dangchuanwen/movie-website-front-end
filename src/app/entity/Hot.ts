@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
-import { Program } from "./Program";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import { Program } from './Program';
 
 @Entity()
 export class Hot {
@@ -8,7 +8,7 @@ export class Hot {
 
   @OneToOne(type => Program)
   @JoinColumn()
-  program: Program; 
+  program: Program;
 
   @Column()
   poster_url: string;
