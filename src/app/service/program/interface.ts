@@ -9,10 +9,10 @@ export interface IGetOneProgramResult extends Program {}
 export interface IGetProgramWallOptions {
   program_type: string;
   program_classification: string;
-  realease_year: number;
+  realease_year: number | string;
   program_area: string;
-  last_id: number;
-  count: number;
+  last_id: number | string;
+  count: number | string;
 }
 export interface IGetProgramWallResult extends Array<Program> {}
 
