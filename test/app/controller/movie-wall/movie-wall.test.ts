@@ -14,7 +14,7 @@ describe('test/app/controller/movie-wall/movie-wall.test.ts', () => {
       count: '',
     };
     const res: IHttpResponse = (
-      await app.httpRequest().get('/movie-wall/get').send(params)
+      await app.httpRequest().get('/movie-wall/get').query(params)
     ).body;
 
     assert(res.status === SUCCESS, '响应码不应为' + res.status);
