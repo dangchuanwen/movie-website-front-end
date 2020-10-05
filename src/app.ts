@@ -19,6 +19,7 @@ class AppBootHook {
       this.connection = con;
       this.app.applicationContext.registerObject('connection', con);
     } catch (err) {
+      console.log(err);
       if (this.ctx) {
         this.ctx.logger.error(err);
       }
@@ -30,7 +31,6 @@ class AppBootHook {
       await this.connection.close();
     }
   }
-
 }
 
 export default AppBootHook;

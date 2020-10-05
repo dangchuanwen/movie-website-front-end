@@ -8,10 +8,10 @@ describe('test/app/controller/movie-wall/movie-wall.test.ts', () => {
     const params: IGetProgramWallOptions = {
       program_type: '',
       program_classification: '',
-      realease_year: '',
+      realease_year: null,
       program_area: '',
-      last_id: '',
-      count: '',
+      last_id: null,
+      count: null,
     };
     const res: IHttpResponse = (
       await app.httpRequest().get('/movie-wall/get').query(params)
